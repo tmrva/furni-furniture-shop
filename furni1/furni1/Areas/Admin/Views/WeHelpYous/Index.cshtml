@@ -1,0 +1,50 @@
+﻿@model IEnumerable<furni1.Models.WeHelpYou>
+<div style="display:flex; justify-content:space-between">
+    <h3>We Help You</h3>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image 1
+                    </th>
+                    <th>
+                        Image 2
+                    </th>
+                    <th>
+                        Image 3
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th style="display:flex; justify-content:flex-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@item.Image1" width="70" class="rounded-1" alt="">
+                        </td>
+                        <td>
+                            <img src="~/images/@item.Image2" width="70" class="rounded-1" alt="">
+                        </td>
+                        <td>
+                            <img src="~/images/@item.Image3" width="70" class="rounded-1" alt="">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td style="display:flex; justify-content:flex-end; height:104px; align-items:center">
+                            <a class="btn btn-outline-primary m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-outline-secondary m-1" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

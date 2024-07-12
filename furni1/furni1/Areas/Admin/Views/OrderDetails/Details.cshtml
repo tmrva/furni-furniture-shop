@@ -1,0 +1,74 @@
+﻿@model furni1.Models.Order
+<div style="display:flex; justify-content:flex-start">
+    <h1>Details / Order</h1>
+</div>
+<div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    First Name
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    Last Name
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Phone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Phone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt class="col-sm-2">
+                    State/Country
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.StateCountry)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostalZip)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PostalZip)
+                </dd>
+                <dt class="col-sm-2">
+                    Order Notes
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.OrderNotes)
+                </dd>
+                @foreach (OrderDetail orderDetail in Model.OrderDetails)
+                {
+                    <hr />
+                    <dt class="col-sm-2">
+                        @orderDetail.Product.Name x @orderDetail.Quantity
+                    </dt>
+                    <dd class="col-sm-10">
+                        <img src="~/images/@orderDetail.Product.Image" width="90" class="rounded-1" alt="">
+                    </dd>
+                }
+            </dl>
+            <div style="display:flex; justify-content:left">
+                <a class="btn btn-outline-secondary m-1" asp-action="Index">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<furni1.Models.WhyChooseUs>
+<div style="display:flex; justify-content:space-between">
+    <h3>Why Choose Us</h3>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        Mini Title 1
+                    </th>
+                    <th>
+                        Mini Title 2
+                    </th>
+                    <th>
+                        Mini Title 3
+                    </th>
+                    <th>
+                        Mini Title 4
+                    </th>
+                    <th style="display:flex; justify-content:flex-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@item.Image" width="70" class="rounded-1" alt="">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.Raw(item.MiniTitle1)
+                        </td>
+                        <td>
+                            @Html.Raw(item.MiniTitle2)
+                        </td>
+                        <td>
+                            @Html.Raw(item.MiniTitle3)
+                        </td>
+                        <td>
+                            @Html.Raw(item.MiniTitle4)
+                        </td>
+                        <td style="display:flex; justify-content:flex-end; height:104px; align-items:center">
+                            <a class="btn btn-outline-primary m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-outline-secondary m-1" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

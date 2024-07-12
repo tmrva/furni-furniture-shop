@@ -1,0 +1,77 @@
+﻿@model RegisterVM
+<!-- Start Hero Section -->
+<div class="hero" style="padding:1rem">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Register</h1>
+				</div>
+			</div>
+			<div class="col-lg-7">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-8 col-lg-4">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" style="color:red"></div>
+                            <form method="post">
+                                <div class="mb-3">
+                                    <input asp-for="@Model.Name" class="form-control" placeholder="Name">
+                                    <span class="error-span" asp-validation-for="@Model.Name"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input asp-for="@Model.Surname" class="form-control" placeholder="Surname">
+                                    <span class="error-span" asp-validation-for="@Model.Surname"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input asp-for="@Model.Username" class="form-control" placeholder="Username">
+                                    <span class="error-span" asp-validation-for="@Model.Username"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input asp-for="@Model.Email" class="form-control" placeholder="Email">
+                                    <span class="error-span" asp-validation-for="@Model.Email"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input asp-for="@Model.Password" class="form-control" placeholder="Password">
+                                    <span class="error-span" asp-validation-for="@Model.Password"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <input asp-for="@Model.RepeatPassword" class="form-control" placeholder="Repeat Password">
+                                    <span class="error-span" asp-validation-for="@Model.RepeatPassword"></span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="form-check">
+                                        <input asp-for ="@Model.IsRemember" class="form-check-input primary" type="checkbox">
+                                        <label asp-for="@Model.IsRemember" class="form-check-label text-dark">Remember me</label>
+                                    </div>
+                                    <a class="text-primary fw-bold ms-2" asp-controller="Account" asp-action="Login">Already have an Account?</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 fs-4 mb-4 rounded-2">Sign Up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Css {
+    <style>
+        .error-span{
+            color: red;
+        }
+    </style>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

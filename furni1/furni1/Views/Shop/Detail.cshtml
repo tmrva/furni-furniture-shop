@@ -1,0 +1,30 @@
+﻿@model Product
+<body style="font-family: Arial, sans-serif; background-color: #f8f8f8; margin: 0; padding: 0;">
+    <div style="display: flex; max-width: 800px; margin: 50px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+        <div style="flex: 1;">
+            <img src="~/images/@Model.Image" alt="Product Image" style="max-width: 100%; border-radius: 10px;">
+        </div>
+        <div style="flex: 2; margin-left: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <h2>@Model.Name</h2>
+            <p style="color: #888; margin: 10px 0;">
+                Category: @foreach (ProductCategory productCategory in Model.ProductCategories)
+                {
+                    <span style="background-color: #e1e1e1; padding: 5px; border-radius: 5px;">@productCategory.Category.Name</span>
+                }
+            </p>
+            <p style="margin: 20px 0;">@Model.Description</p>
+            <div class="d-flex align-items-center">
+                <p style="font-size: 24px; color: #3c5d50; margin: 20px 0;">$@Model.Price</p>
+
+                <form asp-controller="Cart" asp-action="AddToCart" method="post"> 
+                    <input type="hidden" name="productId" value="@Model.Id" /> 
+                    <button type="submit" class="btn btn-primary" style="margin-left:20px; background-color: #3c5d50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Add to Cart</button> 
+                </form>
+
+                <a asp-controller="Shop" asp-action="Index" style="margin-left:20px; background-color: #3c5d50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+                    Back to Shop
+                </a>
+            </div>
+        </div>
+    </div>
+</body>

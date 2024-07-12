@@ -1,0 +1,253 @@
+﻿@model HomeVM
+<!-- Start Hero Section -->
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>@Html.Raw(Model.ContentHome.Title)</h1>
+					<p class="mb-4">@Model.ContentHome.Description</p>
+					<p><a asp-controller="Shop" asp-action="Index" class="btn btn-secondary me-2">Shop Now</a><a asp-controller="Shop" asp-action="Index" class="btn btn-white-outline">Explore</a></p>
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="hero-img-wrap">
+					<img src="~/images/@Model.ContentHome.Image" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+
+<!-- Start Product Section -->
+<div class="product-section">
+	<div class="container">
+		<div class="row">
+
+			<!-- Start Column 1 -->
+			<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+				<h2 class="mb-4 section-title">@Model.ContentProduct.Title</h2>
+				<p class="mb-4">@Model.ContentProduct.Description</p>
+				<p><a asp-controller="Shop" asp-action="Index" class="btn">Explore</a></p>
+			</div>
+			<!-- End Column 1 -->
+			<!-- Start Column 2 -->
+			@foreach (Product product in Model.Products)
+			{
+				<div class="col-12 col-md-4 col-lg-3 mb-5">
+					<a class="product-item" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id">
+						<img src="~/images/@product.Image" class="img-fluid product-thumbnail">
+						<h3 class="product-title">@product.Name</h3>
+						<strong class="product-price">$@product.Price</strong>
+					</a>
+				</div>
+			}
+			<!-- End Column 2 -->
+		</div>
+	</div>
+</div>
+<!-- End Product Section -->
+
+<!-- Start Why Choose Us Section -->
+<div class="why-choose-section">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-6">
+				<h2 class="section-title">@Model.WhyChooseUs.Title</h2>
+				<p>@Model.WhyChooseUs.Description</p>
+
+				<div class="row my-5">
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="~/images/@Model.WhyChooseUs.MiniIcon1" alt="Image" class="imf-fluid">
+							</div>
+							<h3>@Html.Raw(@Model.WhyChooseUs.MiniTitle1)</h3>
+							<p>@Model.WhyChooseUs.MiniDescription1</p>
+						</div>
+					</div>
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="~/images/@Model.WhyChooseUs.MiniIcon2" alt="Image" class="imf-fluid">
+							</div>
+							<h3>@Html.Raw(@Model.WhyChooseUs.MiniTitle2)</h3>
+							<p>@Model.WhyChooseUs.MiniDescription2</p>
+						</div>
+					</div>
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="~/images/@Model.WhyChooseUs.MiniIcon3" alt="Image" class="imf-fluid">
+							</div>
+							<h3>@Html.Raw(@Model.WhyChooseUs.MiniTitle3)</h3>
+							<p>@Model.WhyChooseUs.MiniDescription3</p>
+						</div>
+					</div>
+					<div class="col-6 col-md-6">
+						<div class="feature">
+							<div class="icon">
+								<img src="~/images/@Model.WhyChooseUs.MiniIcon4" alt="Image" class="imf-fluid">
+							</div>
+							<h3>@Html.Raw(@Model.WhyChooseUs.MiniTitle4)</h3>
+							<p>@Model.WhyChooseUs.MiniDescription4</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="img-wrap">
+					<img src="~/images/@Model.WhyChooseUs.Image" alt="Image" class="img-fluid">
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- End Why Choose Us Section -->
+
+<!-- Start We Help Section -->
+<div class="we-help-section">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-7 mb-5 mb-lg-0">
+				<div class="imgs-grid">
+					<div class="grid grid-1"><img src="~/images/@Model.WeHelpYou.Image1" alt="Untree.co"></div>
+					<div class="grid grid-2"><img src="~/images/@Model.WeHelpYou.Image2" alt="Untree.co"></div>
+					<div class="grid grid-3"><img src="~/images/@Model.WeHelpYou.Image3" alt="Untree.co"></div>
+				</div>
+			</div>
+			<div class="col-lg-5 ps-lg-5">
+				<h2 class="section-title mb-4">@Model.WeHelpYou.Title</h2>
+				<p>@Model.WeHelpYou.Description</p>
+
+				<ul class="list-unstyled custom-list my-4">
+					<li>@Model.WeHelpYou.DescriptionLeft</li>
+					<li>@Model.WeHelpYou.DescriptionRigth</li>
+				</ul><p><a asp-controller="Shop" asp-action="Index" class="btn">Explore</a></p>
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- End We Help Section -->
+
+<!-- Start Team Section -->
+<div class="untree_co-section" style="padding: 6rem">
+    <div class="container">
+
+        <div class="row mb-5">
+			<div class="col-md-6">
+				<h2 class="section-title">Our Team</h2>
+			</div>
+			<div class="col-md-6 text-start text-md-end">
+				<a asp-controller="TeamMembers" asp-action="Index" class="more">View All Members</a>
+			</div>
+        </div>
+
+        <div class="row">
+
+            <!-- Start Column 1 -->
+            @foreach (TeamMember teamMember in Model.TeamMembers)
+			{
+				<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+					<img src="~/images/@teamMember.Image" class="img-fluid mb-5">
+					<h3 clas><a asp-controller="TeamMembers" asp-action="Detail" asp-route-id="@teamMember.Id"><span class="">@teamMember.Name</span> @teamMember.LastName</a></h3>
+					<span class="d-block position mb-4">@teamMember.Profession</span>
+					<p class="mb-0"><a asp-controller="TeamMembers" asp-action="Detail" asp-route-id="@teamMember.Id" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
+				</div>
+			}
+            <!-- End Column 1 -->
+        </div>
+    </div>
+</div>
+<!-- End Team Section -->
+
+<!-- Start Blog Section -->
+<div class="blog-section" style="padding: 6rem">
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-md-6">
+				<h2 class="section-title">Recent Blog</h2>
+			</div>
+			<div class="col-md-6 text-start text-md-end">
+				<a asp-controller="Blogs" asp-action="Index" class="more">View All Posts</a>
+			</div>
+		</div>
+
+		<div class="row">
+
+			@foreach (Blog blog in Model.Blogs)
+			{
+				<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+					<div class="post-entry">
+						<a asp-controller="Blogs" asp-action="Detail" asp-route-id="@blog.Id" class="post-thumbnail"><img src="~/images/@blog.Image" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a asp-controller="Blogs" asp-action="Detail" asp-route-id="@blog.Id">@blog.Title</a></h3>
+							<div class="meta">
+								<span>by <a href="#">@blog.By</a></span> <span>on <a href="#">@blog.CreatedTime.ToString("MMM dd, yyyy")</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+
+		</div>
+	</div>
+</div>
+<!-- End Blog Section -->
+
+<!-- Start Testimonial Slider -->
+<div class="testimonial-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 mx-auto text-center">
+				<h2 class="section-title">Testimonials</h2>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				<div class="testimonial-slider-wrap text-center">
+
+					<div id="testimonial-nav">
+						<span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
+						<span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
+					</div>
+
+					<div class="testimonial-slider">
+
+						@foreach (Testimonial testimonial in Model.Testimonials)
+						{
+							<div class="item">
+								<div class="row justify-content-center">
+									<div class="col-lg-8 mx-auto">
+
+										<div class="testimonial-block text-center">
+											<blockquote class="mb-5">
+												<p>@testimonial.Description</p>
+											</blockquote>
+											<div class="author-info">
+												<div class="author-pic">
+													<img src="~/images/@testimonial.Image" alt="@testimonial.Name" class="img-fluid">
+												</div>
+												<h3 class="font-weight-bold">@testimonial.Name</h3>
+												<span class="position d-block mb-3">@testimonial.Profession</span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- END item -->
+						}
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Testimonial Slider -->

@@ -1,0 +1,18 @@
+﻿@model TeamMember
+<div style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+    <div class="col-12" style="display:flex; justify-content:space-between">
+        <div class="col-5">
+            <img src="~/images/@Model.Image" alt="Blog Image" style="max-width: 90%; border-radius: 10px; margin-bottom: 20px;">
+        </div>
+        <div class="col-7">
+            <h1 style="font-size: 28px; margin-bottom: 10px;">@Model.Name @Model.LastName</h1>
+            <p style="color: #555; margin: 5px 0;">
+                Profession:
+                <span style="background-color: #e1e1e1; padding: 5px; border-radius: 5px;">@Model.Profession</span>
+            </p>
+            <div style="margin-top: 20px; line-height: 1.6;">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</div>

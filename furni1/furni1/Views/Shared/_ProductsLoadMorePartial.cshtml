@@ -1,0 +1,11 @@
+﻿@model List<Product>
+@foreach (Product product in Model)
+{
+	<div class="col-12 col-md-4 col-lg-3 mb-5">
+		<a class="product-item" asp-controller="Shop" asp-action="Detail" asp-route-id="@product.Id">
+			<img src="~/images/@product.Image" class="img-fluid product-thumbnail">
+			<h3 class="product-title">@product.Name</h3>
+			<strong class="product-price">$@product.Price</strong>
+		</a>
+	</div>
+}

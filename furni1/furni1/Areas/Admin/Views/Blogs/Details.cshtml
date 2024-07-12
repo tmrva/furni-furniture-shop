@@ -1,0 +1,50 @@
+﻿@model furni1.Models.Blog
+<div style="display:flex; justify-content:flex-start">
+    <h1>Details / Blog</h1>
+</div>
+<div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Image)
+                </dt>
+                <dd class="col-sm-10">
+                    <img src="~/images/@Model.Image" width="190" class="rounded-1" alt="">
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <hr />
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.By)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.By)
+                </dd>
+                <hr />
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreatedTime)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreatedTime)
+                </dd>
+                <hr />
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+            <div style="display:flex; justify-content:left">
+                <a class="btn btn-primary m-1" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+                <a class="btn btn-outline-secondary m-1" asp-action="Index">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<furni1.Models.Blog>
+<div style="display:flex; justify-content:space-between">
+    <h3>Blogs</h3>
+    <a type="button" class="btn btn-primary m-1" asp-action="Create">Create</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.By)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedTime)
+                    </th>
+                    <th>Status</th>
+                    <th style="display:flex; justify-content:flex-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@item.Image" width="70" class="rounded-1" alt="">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.By)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedTime)
+                        </td>
+                        <td>
+                            @if (item.IsDeactive)
+                            {
+                                <span class="badge bg-light-danger rounded-pill text-danger px-3 py-2 fs-3">Passive</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-light-success rounded-pill text-success px-3 py-2 fs-3">Active</span>
+                            }
+                        </td>
+                        <td style="display:flex; justify-content:flex-end; align-items:center">
+                            @if (item.IsDeactive)
+                            {
+                                <a class="btn btn-outline-success m-1" style="width:135px" asp-action="Activity" asp-route-id="@item.Id" style="margin-right:10px; width:120px">Activate</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-outline-danger m-1" style="width:135px" asp-action="Activity" asp-route-id="@item.Id" style="margin-right:10px; width:120px">Deactivate</a>
+                            }
+                            <a class="btn btn-outline-primary m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-outline-secondary m-1" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

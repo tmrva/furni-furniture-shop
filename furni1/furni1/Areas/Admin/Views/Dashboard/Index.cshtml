@@ -1,0 +1,115 @@
+﻿@model furni1.ViewModels.DashboardVM
+
+<div class="container-fluid">
+    <!--  Row 1 -->
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <!-- Users -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h5 class="card-title mb-10 fw-semibold">All Users</h5>
+                            <h4 class="fw-semibold mb-3">@Model.TotalUsers</h4>
+                            <a asp-controller="Users" asp-action="Index">Go to Users</a>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-white bg-danger rounded-circle p-7 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <!-- Products -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h5 class="card-title mb-10 fw-semibold">Active Products</h5>
+                            <h4 class="fw-semibold mb-3">@Model.ActiveProducts</h4>
+                            <a asp-controller="Products" asp-action="Index">Go to Products</a>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-white bg-danger rounded-circle p-7 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Row 2 -->
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <!-- Total Orders Amount -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h5 class="card-title mb-10 fw-semibold"> Total Orders Amount</h5>
+                            <h4 class="fw-semibold mb-3">$@Model.TotalOrdersAmount</h4>
+                            <a asp-controller="OrderDetails" asp-action="Index">Go to Orders</a>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-white bg-danger rounded-circle p-7 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <!-- Orders -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h5 class="card-title mb-10 fw-semibold">All Orders</h5>
+                            <h4 class="fw-semibold mb-3">@Model.TotalOrdersCount</h4>
+                            <a asp-controller="OrderDetails" asp-action="Index">Go to Orders</a>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-white bg-danger rounded-circle p-7 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <!-- Orders -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h5 class="card-title mb-10 fw-semibold">Unread Messages</h5>
+                            <h4 class="fw-semibold mb-3">@Model.UnreadMessages</h4>
+                            <a asp-controller="Messages" asp-action="Index">Go to Messages</a>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-white bg-danger rounded-circle p-7 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

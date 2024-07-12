@@ -1,0 +1,65 @@
+﻿@model List<Blog>
+<!-- Start Hero Section -->
+<div class="hero" style="padding:1rem">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Blogs</h1>
+				</div>
+			</div>
+			<div class="col-lg-7">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+<!-- Start Blog Section -->
+<div class="blog-section">
+	<div class="container">
+
+		<div class="row">
+
+			@foreach (Blog blog in Model)
+			{
+				<div class="col-12 col-sm-6 col-md-4 mb-5">
+					<div class="post-entry">
+						<a asp-controller="Blogs" asp-action="Detail" asp-route-id="@blog.Id" class="post-thumbnail"><img src="~/images/@blog.Image" alt="Image" class="img-fluid"></a>
+						<div class="post-content-entry">
+							<h3><a asp-controller="Blogs" asp-action="Detail" asp-route-id="@blog.Id">@blog.Title</a></h3>
+							<div class="meta">
+								<span>by <a href="#">@blog.By</a></span> <span>on <a href="#">@blog.CreatedTime.ToString("MMM dd, yyyy")</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+
+		</div>
+		<nav aria-label="Page navigation example" style="display:flex; justify-content:center">
+			<ul class="pagination">
+				@if (!(ViewBag.CurrentPage <= 1))
+				{
+					<li class="page-item"><a class="page-link" style="color:#3c5d50" asp-controller="Blogs" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a></li>
+				}
+				@for (int i = 1; i <= ViewBag.PagesCount; i++)
+				{
+					if (ViewBag.CurrentPage == i)
+					{
+						<li class="page-item active"><a class="page-link" style="background-color:#3c5d50" asp-controller="Blogs" asp-action="Index" asp-route-page="@i">@i</a></li>
+					}
+					else
+					{
+						<li class="page-item"><a class="page-link" style="color:#3c5d50" asp-controller="Blogs" asp-action="Index" asp-route-page="@i">@i</a></li>
+					}
+				}
+				@if (!(ViewBag.CurrentPage >= ViewBag.PagesCount))
+				{
+					<li class="page-item"><a class="page-link" style="color:#3c5d50" asp-controller="Blogs" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage+1)">Next</a></li>
+
+				}
+			</ul>
+		</nav>
+	</div>
+</div>
+<!-- End Blog Section -->

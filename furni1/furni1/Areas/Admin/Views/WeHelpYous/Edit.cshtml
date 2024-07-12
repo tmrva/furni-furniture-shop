@@ -1,0 +1,54 @@
+﻿@model furni1.Models.WeHelpYou
+<div style="display:flex; justify-content:flex-start">
+    <h1>Edit / We Help You</h1>
+</div>
+<hr />
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3 form-group">
+                <label asp-for="Photo1" class="control-label">Image 1</label>
+                <input asp-for="Photo1" accept="image/*" class="form-control" />
+                <span asp-validation-for="Photo1" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="Photo2" class="control-label">Image 2</label>
+                <input asp-for="Photo2" accept="image/*" class="form-control" />
+                <span asp-validation-for="Photo2" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="Photo3" class="control-label">Image 3</label>
+                <input asp-for="Photo3" accept="image/*" class="form-control" />
+                <span asp-validation-for="Photo3" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="DescriptionLeft" class="control-label">Description-Left</label>
+                <textarea asp-for="DescriptionLeft" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionLeft" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="DescriptionRigth" class="control-label">Description-Rigth</label>
+                <textarea asp-for="DescriptionRigth" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionRigth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-secondary m-1" asp-action="Index">Back to list</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

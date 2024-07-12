@@ -1,0 +1,147 @@
+﻿@model OrderViewModel
+
+<div class="hero" style="padding:1rem">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1>Checkout</h1>
+                </div>
+            </div>
+            <div class="col-lg-7">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="untree_co-section" style="padding:3rem">
+    <div class="container">
+        <form id="checkout-form" asp-action="PlaceOrder" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <h2 class="h3 mb-3 text-black">Billing Details</h2>
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group">
+                            <label for="firstName" class="text-black">First Name <span class="text-danger">*</span></label>
+                            <input type="text" id="firstName" name="FirstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="text-black">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" id="lastName" name="LastName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-black">Email <span class="text-danger">*</span></label>
+                            <input type="email" id="email" name="Email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                            <input type="tel" id="phone" name="Phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="text-black">Address <span class="text-danger">*</span></label>
+                            <input type="text" id="address" name="Address" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="stateCountry" class="text-black">State/Country <span class="text-danger">*</span></label>
+                            <input type="text" id="stateCountry" name="StateCountry" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalZip" class="text-black">Postal/Zip <span class="text-danger">*</span></label>
+                            <input type="text" id="postalZip" name="PostalZip" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderNotes" class="text-black">Order Notes</label>
+                            <textarea id="orderNotes" name="OrderNotes" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black">Your Order</h2>
+                            <div class="p-3 p-lg-5 border">
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                    <th>Product</th>
+                                    <th>Total</th>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Products != null && Model.Products.Any())
+                                        {
+                                            foreach (var product in Model.Products)
+                                            {
+                                                <tr>
+                                                    <td>@product.Name <strong class="mx-2">x</strong> @Model.Quantities[product.Id]</td>
+                                                    <td>$@product.Price</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                                <td class="text-black font-weight-bold"><strong>$@Model.CartTotal</strong></td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="2">Your cart is empty.</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="form-group">
+                                    <input type="hidden" name="CartTotal" value="@Model.CartTotal" />
+                                    <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.getElementById('checkout-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const formData = {
+            FirstName: document.getElementById('firstName').value,
+            LastName: document.getElementById('lastName').value,
+            Email: document.getElementById('email').value,
+            Phone: document.getElementById('phone').value,
+            Address: document.getElementById('address').value,
+            StateCountry: document.getElementById('stateCountry').value,
+            PostalZip: document.getElementById('postalZip').value,
+            OrderNotes: document.getElementById('orderNotes').value,
+            CartTotal: parseFloat(document.querySelector('input[name="CartTotal"]').value),
+            Products: @Html.Raw(Json.Serialize(Model.Products)),
+            Quantities: @Html.Raw(Json.Serialize(Model.Quantities))
+            };
+
+        try {
+            const response = await fetch('@Url.Action("PlaceOrder", "Checkout")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const session = await response.json();
+            const stripe = Stripe('pk_test_51PX1a52KyfNRO2IJEAVD9FGAHzWbmE2L1TlBsPO5d6rEwvwBJ4Y5btdPcAC3DIcyBuWfJxV1ehs5UxTon4nfkk3V00lY3FAeGm');
+            const { error } = await stripe.redirectToCheckout({ sessionId: session.id });
+
+            if (error) {
+                console.error(error);
+            }
+        } catch (error) {
+            console.error('There was an error:', error);
+        }
+    });
+</script>

@@ -1,0 +1,41 @@
+﻿@model furni1.Models.Testimonial
+<div style="display:flex; justify-content:flex-start">
+    <h1>Details / Testimonial</h1>
+</div>
+<div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Image)
+                </dt>
+                <dd class="col-sm-10">
+                    <img src="~/images/@Model.Image" width="190" class="rounded-1" alt="">
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Profession)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Profession)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+            <div style="display:flex; justify-content:left">
+                <a class="btn btn-primary m-1" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+                <a class="btn btn-outline-secondary m-1" asp-action="Index">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>

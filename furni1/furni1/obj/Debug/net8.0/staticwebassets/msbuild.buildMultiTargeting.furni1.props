@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\furni1.props" />
+</Project>

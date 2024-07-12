@@ -1,0 +1,189 @@
+﻿@model CartViewModel
+
+<!-- Start Hero Section -->
+<div class="hero" style="padding:1rem">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1>Cart</h1>
+                </div>
+            </div>
+            <div class="col-lg-7">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Hero Section -->
+<div class="untree_co-section before-footer-section">
+    <div class="container">
+        <div class="row mb-5">
+            <form class="col-md-12">
+                <div class="site-blocks-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">Image</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                                <th class="product-remove">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <img src="~/images/@product.Image" alt="Image" class="img-fluid">
+                                    </td>
+                                    <td class="product-name">
+                                        <h2 class="h5 text-black">@product.Name</h2>
+                                    </td>
+                                    <td class="product-price">$@product.Price</td>
+                                    <td>
+                                        <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-black decrease" type="button" data-id="@product.Id" onclick="updateQuantity(@product.Id, -1)">&minus;</button>
+                                            </div>
+                                            <input type="text" class="form-control text-center quantity-amount" value="@Model.Quantities[product.Id]" data-id="@product.Id" readonly>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-black increase" type="button" data-id="@product.Id" onclick="updateQuantity(@product.Id, 1)">&plus;</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="product-total" data-product-id="@product.Id">$@(product.Price * Model.Quantities[product.Id])</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" data-id="@product.Id" onclick="removeFromCart(@product.Id)">x</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <a class="btn btn-outline-black btn-sm btn-block" asp-controller="Shop" asp-action="Index">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pl-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <span class="text-black">Total</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black cart-total">$@Model.CartTotal</strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-black btn-lg py-3 btn-block" asp-controller="Checkout" asp-action="Index">Proceed To Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.quantity-container').forEach(function (container) {
+            const decreaseButton = container.querySelector('.decrease');
+            const increaseButton = container.querySelector('.increase');
+            const quantityInput = container.querySelector('.quantity-amount');
+            const productId = quantityInput.getAttribute('data-id');
+            const productPrice = parseFloat(container.closest('tr').querySelector('.product-price').innerText.replace('$', ''));
+
+            decreaseButton.addEventListener('click', function () {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantity -= 1;
+                    quantityInput.value = quantity;
+                    updateProductTotal(productId, quantity, productPrice);
+                }
+            });
+
+            increaseButton.addEventListener('click', function () {
+                let quantity = parseInt(quantityInput.value);
+                quantity += 1;
+                quantityInput.value = quantity;
+                updateProductTotal(productId, quantity, productPrice);
+            });
+
+            quantityInput.addEventListener('change', function () {
+                let quantity = parseInt(quantityInput.value);
+                if (isNaN(quantity) || quantity < 1) {
+                    quantity = 1;
+                    quantityInput.value = quantity;
+                }
+                updateProductTotal(productId, quantity, productPrice);
+            });
+        });
+    });
+
+    function updateQuantity(productId, change) {
+        let quantityInput = document.querySelector(`input[data-id='${productId}']`);
+        let currentQuantity = parseInt(quantityInput.value);
+        let newQuantity = currentQuantity + change;
+
+        if (newQuantity >= 1) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateCart", "Cart")",
+                data: { productId: productId, quantity: newQuantity },
+                success: function (response) {
+                    if (response.success) {
+                        quantityInput.value = newQuantity;
+                        updateProductTotal(productId, newQuantity);
+                        updateCartTotal(response.cartTotal);
+                    }
+                }
+            });
+        }
+    }
+
+    function updateProductTotal(productId, newQuantity) {
+        let priceElement = document.querySelector(`input[data-id='${productId}']`).closest('tr').querySelector('.product-price');
+        let price = parseFloat(priceElement.innerText.replace('$', ''));
+        let totalElement = document.querySelector(`td[data-product-id='${productId}']`);
+        totalElement.innerText = `$${(price * newQuantity).toFixed(2)}`;
+    }
+
+    function updateCartTotal(cartTotal) {
+        document.querySelector(".cart-total").innerText = `$${cartTotal.toFixed(2)}`;
+    }
+
+    function removeFromCart(productId) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("RemoveFromCart", "Cart")",
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    document.querySelector(`button[data-id='${productId}']`).closest('tr').remove();
+                    updateCartTotal(response.cartTotal);
+                }
+            }
+        });
+    }
+
+</script>

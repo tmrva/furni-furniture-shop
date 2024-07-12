@@ -1,0 +1,52 @@
+﻿@model IEnumerable<furni1.Models.Message>
+<div style="display:flex; justify-content:space-between">
+    <h3>Messages</h3>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+                    <th>Status</th>
+                    <th style="display:flex; justify-content:flex-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @if (item.IsReplied)
+                            {
+                                <span class="badge bg-light-success rounded-pill text-success px-3 py-2 fs-3">Replied</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-light-danger rounded-pill text-danger px-3 py-2 fs-3">Not replied</span>
+                            }
+                        </td>
+                        <td style="display:flex; justify-content:flex-end; align-items:center">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-outline-primary m-1" asp-action="SendEmail" asp-route-id="@item.Id">Send Email</a>
+                            }
+                            <a class="btn btn-outline-secondary m-1" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

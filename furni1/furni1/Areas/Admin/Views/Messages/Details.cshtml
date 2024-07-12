@@ -1,0 +1,40 @@
+﻿@model furni1.Models.Message
+<div style="display:flex; justify-content:flex-start">
+    <h1>Details / Message</h1>
+</div>
+<div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <hr />
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Subject)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Subject)
+                </dd>
+                <hr />
+                <dt class="col-sm-2">
+                    Message
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Text)
+                </dd>
+            </dl>
+            <div style="display:flex; justify-content:left">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-primary m-1" asp-action="SendEmail" asp-route-id="@Model?.Id">Send Email</a>
+                }
+                <a class="btn btn-outline-secondary m-1" asp-action="Index">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
