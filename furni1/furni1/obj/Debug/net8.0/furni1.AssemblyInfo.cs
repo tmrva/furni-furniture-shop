@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("furni1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4b1dce9cfa5b97469b49f73fe20431820366421")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6cd43a3c686a7f937b017afe34bda6461a6dda1d")]
 [assembly: System.Reflection.AssemblyProductAttribute("furni1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("furni1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
